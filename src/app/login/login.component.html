@@ -1,0 +1,57 @@
+<div class="modal">
+    <div class="clr-row">
+        <div class="modal-dialog" role="dialog" aria-hidden="true">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button aria-label="Close" class="close" type="button">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                    <h3 class="modal-title">Login</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="clrForm">
+                        <div class="clr-row">
+                            <clr-input-container class="clr-col-6">
+                                <input type="text" name="username" clrInput placeholder="Username" [(ngModel)]="form.username" />
+                            </clr-input-container>
+                            <clr-password-container class="clr-col-6">
+                                <input type="password" name="password" clrPassword placeholder="Password" [(ngModel)]="form.password" />
+                            </clr-password-container>
+                        </div>
+                        <div class="clr-row clr-justify-content-around">
+                            <div class="clr-col-6">
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    <div class="alert-items">
+                        <div class="alert-item static">
+                            <div class="alert-icon-wrapper">
+                                <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                            </div>
+                            <span class="alert-text">
+                            Invalid user name or password
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="clr-col-9">
+                        <clr-checkbox-wrapper>
+                            <label>Remember me</label>
+                            <input type="checkbox" name="rememberMe" clrCheckbox [(ngModel)]="form.rememberMe" />
+                        </clr-checkbox-wrapper>
+                    </div>
+                    <div class="clr-col-3">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true"></div>
