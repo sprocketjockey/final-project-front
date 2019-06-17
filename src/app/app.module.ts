@@ -13,12 +13,16 @@ import { ApiUserService } from './api-user.service';
 
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
+import { ChartComponent } from './chart/chart.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    LoginComponent
+    LoginComponent,
+    ChartComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

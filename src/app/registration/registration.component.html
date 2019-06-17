@@ -1,0 +1,33 @@
+<div class="login-wrapper">
+    <form class="login">
+        <section class="title">
+            <h3 class="welcome">Welcome to</h3>
+            Legal Casino Inc
+            <h5 class="hint">Use your Company ID to sign in or create one now</h5>
+        </section>
+        <div class="login-group">
+            <clr-input-container>
+                <input type="text" name="email" clrInput placeholder="E-mail Address" [(ngModel)]="email"/>
+            </clr-input-container>
+            <clr-input-container>
+                <input type="text" name="firstName" clrInput placeholder="First Name" [(ngModel)]="firstName"/>
+            </clr-input-container>
+            <clr-input-container>
+                <input type="text" name="lastName" clrInput placeholder="Last Name" [(ngModel)]="lastName"/>
+            </clr-input-container>
+            <clr-password-container>
+                <input type="password" name="password" clrPassword placeholder="Password" [(ngModel)]="password"/>
+            </clr-password-container>
+            <clr-password-container>
+                <input type="password" name="verify_password" clrPassword placeholder="Verify Password" [(ngModel)]="verify_password"/>
+            </clr-password-container>
+            <div class="error active" *ngIf="passwordMismatch">
+                Password does not match
+            </div>
+            <div class="error active" *ngIf="existingUser">
+                User exists
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="register()">NEXT</button>
+        </div>
+    </form>
+</div>
