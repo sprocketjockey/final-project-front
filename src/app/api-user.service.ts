@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiUserService {
 
-  userID : string;
+  userId : string;
   firstName : string;
   lastName : string;
   email : string;
@@ -23,7 +23,8 @@ export class ApiUserService {
   }
   
   loginResult(result : any) {
-    this.userID = result.userID;
+    this.userId = result.userId;
+    this.getUserInfo();
   }
   
   userInformationResult(result : any) {
@@ -31,6 +32,8 @@ export class ApiUserService {
     this.lastName = result.lastName;
     this.email = result.email;
     this.loggedIn = true;
+    
+    console.log(this.loggedIn);
   }
   
   registerError (err: any) {
@@ -65,7 +68,7 @@ export class ApiUserService {
   }
   
   getUserInfo () {
-    let url = "http://meanstack-2019-3-jason-phortonssf.c9users.io:8080/api/appUsers/" + this.userID;
+    let url = "http://meanstack-2019-3-jason-phortonssf.c9users.io:8080/api/appUsers/" + this.userId;
     this._http.get(url).subscribe(this.userInformationResult.bind(this));
   }
 }
