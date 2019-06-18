@@ -12,9 +12,9 @@ export class ApiFinanceService {
   constructor(private _http: HttpClient) { }
   
   getMarketData() {
-    let url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SPY&interval=1min&apikey=89YK8CQ8NUGC4UQ0'
+    //let url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SPY&interval=1min&apikey=89YK8CQ8NUGC4UQ0'
     //let url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPY&outputsize=compact&apikey=89YK8CQ8NUGC4UQ0'
-    //let url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo'
+    let url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=demo'
     return this._http.get(url);
   }
   
@@ -24,7 +24,7 @@ export class ApiFinanceService {
     let symbol = result["Meta Data"]["2. Symbol"];
     console.log(symbol);
     
-    let timeSeries = result["Time Series (1min)"];
+    let timeSeries = result["Time Series (5min)"];
     console.log(timeSeries);
     
     let tempPriceData = [];

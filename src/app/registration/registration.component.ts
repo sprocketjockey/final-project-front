@@ -42,7 +42,6 @@ export class RegistrationComponent implements OnInit {
       this.passwordMismatch = true;
     }
 
-    console.log(user)
   }
 
 }
