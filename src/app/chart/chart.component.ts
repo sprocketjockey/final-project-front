@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Chart } from 'chart.js';
 import { ApiFinanceService } from '../api-finance.service'
+
 
 @Component({
   selector: 'app-chart',
@@ -9,19 +10,22 @@ import { ApiFinanceService } from '../api-finance.service'
 })
 export class ChartComponent implements OnInit {
   @ViewChild('lineChart') private chartRef;
+  @Input() private symbol;
   chart: any;
   
   constructor(private _apiFinance: ApiFinanceService) { 
     
   }
 
-  ngOnInit() {
-    this._apiFinance.getMarketData().subscribe((result) => {this._apiFinance.processMarketData(result); this.render()})
-    
+  ngOnInit() { }
+  
+  ngOnChanges() {
+    if (this.symbol) {
+      this._apiFinance.getMarketData(this.symbol).subscribe((result) => {this._apiFinance.processMarketData(result); this.render()})
+    }
   }
   
   render() {
-    
     let labels = {t:"Time", y:"Price"};
     
     this.chart = new Chart("myCanvas", {

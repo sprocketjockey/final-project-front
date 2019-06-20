@@ -1,19 +1,20 @@
 <div class="main-container">
-  <div class="alert alert-app-level">
+  <div *ngIf='error' class="alert alert-app-level">
     ...
   </div>
   <header class="header header-7">
     <div class="branding">
       <a href="..." class="nav-link">
-        <clr-icon shape="vm-bug"></clr-icon>
-        <span class="title">Project Clarity</span>
+        <clr-icon shape="coin-bag"></clr-icon>
+        <span class="title">Legal Casino Inc</span>
       </a>
     </div>
-    <form class="search">
-      <label for="search_input">
-            <input id="search_input" type="text" placeholder="Search for keywords...">
-        </label>
-    </form>
+    <!--<form (submit)="symbolSearch()" class="search">-->
+    <!--  <label for="search_input">-->
+    <!--        <input name="search_box" id="search_input" type="text" placeholder="Search for symbol..." -->
+    <!--        [(ngModel)]="search" (click)="symbolSearch()">-->
+    <!--    </label>-->
+    <!--</form>-->
     <div *ngIf='loggedIn' class="header-actions">
       <clr-dropdown>
         <button class="nav-text" clrDropdownTrigger>
@@ -21,8 +22,8 @@
                 <clr-icon shape="caret down"></clr-icon>
             </button>
         <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-          <a href="..." clrDropdownItem>Preferences</a>
-          <a href="..." clrDropdownItem>Log out</a>
+          <!--<a href="..." clrDropdownItem>Preferences</a>-->
+          <a (click)='logOut()' routerLink='./main' clrDropdownItem>Log out</a>
         </clr-dropdown-menu>
       </clr-dropdown>
     </div>
@@ -32,15 +33,49 @@
       </a>
     </div>
   </header>
-  <nav class="subnav">
-
+  <nav *ngIf='loggedIn'>
+    <a href="..." class="label label-blue clickable">AAPL Apple</a>
+    <a href="..." class="label label-orange clickable">F Ford</a>
   </nav>
   <div class="content-container">
     <div class="content-area">
-      <app-chart></app-chart>
+      <h2>
+        {{ active_symbol_company }}
+      </h2>
+      <button class="btn btn-outline" *ngIf="loggedIn && active_symbol">
+        <clr-icon shape="star"></clr-icon>
+        Add to Watchlist
+      </button>
+      <app-chart [symbol]='active_symbol'></app-chart>
     </div>
-    <nav class="sidenav">
-      ...
-    </nav>
+    <clr-vertical-nav>
+      <div>
+        <form (submit)="symbolSearch()" class="search">
+          <label for="search_input">
+            <clr-icon shape="search"></clr-icon>
+            <input name="search_box" id="search_input" type="text" placeholder="Search for symbol..." 
+            [(ngModel)]="search" (click)="symbolSearch()">
+        </label>
+        </form>
+      </div>
+      <ul class="list" style="list-style-type:none;">
+        <li *ngFor="let ticker of ticker_results">
+          <div class="clr-row">
+            <div class="clr-col-11">
+              <a (click)="display(ticker.symbol, ticker.name)" class="card clickable">
+                <div class="card-header">
+                  {{ ticker.symbol }}
+                </div>
+                <div class="card-block">
+                  <p class="card-text">
+                    {{ ticker.name }}
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </clr-vertical-nav>
   </div>
 </div>

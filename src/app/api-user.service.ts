@@ -97,4 +97,16 @@ export class ApiUserService {
     this.loggedIn = true;
     this.getUserInfo()
   }
+  
+  logOut(){
+    this.loggedIn = false;
+    this.userId = "";
+    this.token = "";
+    this.firstName = "";
+    this.lastName = "";
+    this.email = "";
+    sessionStorage.clear();
+    this._router.navigate(['/main'])
+    
+  }
 }
