@@ -16,7 +16,9 @@ export class MainComponent implements OnInit {
   search : string;
   ticker_results : any [];
   active_symbol : string;
-  active_symbol_company : string;
+  active_company : string;
+  active_watchlist: boolean;
+  
 
   constructor(private _finance : ApiFinanceService, private _user : ApiUserService) { 
     this.error = false;
@@ -41,7 +43,16 @@ export class MainComponent implements OnInit {
   display(ticker_symbol : string, company : string) {
     //console.log(this.active_symbol);
     this.active_symbol=ticker_symbol;
-    this.active_symbol_company = company;
+    this.active_company = company;
+    
+    this.active_watchlist = false;
+    
+    for(let i = 0; i < this._user.watchlist.length; i++) {
+      if (this.active_symbol === this._user.watchlist[i].symbol) {
+        this.active_watchlist = true;
+      }
+    }
+    
   }
   
   logOut() {
@@ -49,4 +60,15 @@ export class MainComponent implements OnInit {
     this.loggedIn = this._user.loggedIn;
     console.log(this.loggedIn);
   }
+  
+  addToWatchlist() {
+    this._user.addToWatchlist(this.active_symbol, this.active_company);
+    this.active_watchlist = true;
+  }
+  
+  removeFromWatchlist() {
+    this._user.removeFromWatchlist(this.active_symbol);
+    this.active_watchlist = false;
+  }
+  
 }

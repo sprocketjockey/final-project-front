@@ -26,6 +26,11 @@ export class ChartComponent implements OnInit {
   }
   
   render() {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    
+    
     let labels = {t:"Time", y:"Price"};
     
     this.chart = new Chart("myCanvas", {

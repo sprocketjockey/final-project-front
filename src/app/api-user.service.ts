@@ -12,10 +12,12 @@ export class ApiUserService {
   lastName : string;
   email : string;
   token : string;
+  watchlist : any [];
   
   loggedIn : boolean;
   
-  baseURL : string = 'http://meanstack-2019-3-jason-phortonssf.c9users.io:8080/api/appUsers';
+  appUsersURL : string = 'http://meanstack-2019-3-jason-phortonssf.c9users.io:8080/api/appUsers';
+  watchlistURL : string = 'http://meanstack-2019-3-jason-phortonssf.c9users.io:8080/api/watchlists';
 
   constructor(private _http: HttpClient, private _router : Router) {
     if(sessionStorage.length !== 0) {
@@ -62,7 +64,7 @@ export class ApiUserService {
   }
   
   registerUser(userData) {
-    let url = `${this.baseURL}`;
+    let url = `${this.appUsersURL}`;
     this._http.post(url, userData)
       .subscribe(
         (res) => this.registerResult(res),
@@ -71,7 +73,7 @@ export class ApiUserService {
   }
   
   loginUser (userData) {
-    let url = `${this.baseURL}/login`;
+    let url = `${this.appUsersURL}/login`;
     this._http.post(url, userData)
       .subscribe(
         (res) => this.loginResult(res),
@@ -80,8 +82,10 @@ export class ApiUserService {
   }
   
   getUserInfo () {
-    let url = `${this.baseURL}/${this.userId}?access_token=${this.token}`;
+    let url = `${this.appUsersURL}/${this.userId}?access_token=${this.token}`;
     this._http.get(url).subscribe((res) => this.userInformationResult(res));
+    this.getWatchlist()
+    
   }
   
   saveSession() {
@@ -109,4 +113,54 @@ export class ApiUserService {
     this._router.navigate(['/main'])
     
   }
+  
+  addToWatchlist(symbol:string, companyName:string) {
+    let url = `${this.watchlistURL}?access_token=${this.token}`;
+    let data = {
+      symbol:symbol,
+      companyName:companyName,
+      userId:this.userId
+    };
+    
+    this._http.post(url, data)
+      .subscribe(
+        (res) => this.addWatchlistResult(res),
+        (err) => this.addWatchlistError(err)
+      );
+    
+
+  }
+  
+  addWatchlistResult(res:any) {
+    console.log(res);
+    this.getWatchlist();
+  }
+  
+  addWatchlistError(err:any) {
+    console.log(err);
+  }
+  
+  removeFromWatchlist(symbol:string) {
+    for (let i = 0; i < this.watchlist.length; i++) {
+      if (this.watchlist[i].symbol === symbol) {
+        let url = `${this.watchlistURL}/${this.watchlist[i].id}?access_token=${this.token}`
+        this._http.delete(url).subscribe((res) => this.itemRemovedFromWatchlist(res));
+      }
+    }
+    
+  }
+  
+  itemRemovedFromWatchlist(result:any) {
+    this.getWatchlist();
+  }
+  
+  getWatchlist() {
+    let url = `${this.appUsersURL}/${this.userId}/watchlists?access_token=${this.token}`
+    this._http.get(url).subscribe((res) => this.updateWatchlist(res));
+  }
+  
+  updateWatchlist(result:any) {
+    this.watchlist = result;
+  }
+  
 }
