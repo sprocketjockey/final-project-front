@@ -19,8 +19,8 @@ export class ApiUserService {
   //appUsersURL : string = 'http://meanstack-2019-3-jason-phortonssf.c9users.io:8080/api/appUsers';
   //watchlistURL : string = 'http://meanstack-2019-3-jason-phortonssf.c9users.io:8080/api/watchlists';
 
-  appUsersURL : string = 'http://jasonherrling.com/api/appUsers';
-  watchlistURL : string = 'http://jasonherrling.com/api/watchlists';
+  appUsersURL : string = 'https://jasonherrling.com/api/appUsers';
+  watchlistURL : string = 'https://jasonherrling.com/api/watchlists';
 
   constructor(private _http: HttpClient, private _router : Router) {
     if(sessionStorage.length !== 0) {
